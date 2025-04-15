@@ -18,6 +18,8 @@ function brackets() {
   arr.push(")");
 
   display.value = arr.join("");
+
+  console.log("test");
 }
 
 function calculate() {
