@@ -1,0 +1,26 @@
+button {
+  color: rgb(250, 233, 233);
+  background-color: #ffccc1;
+  border: none;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.numbers > button {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+button:hover {
+  background-color: #f4978e;
+}
+
+button:active {
+  background-color: #f08080;
+}
