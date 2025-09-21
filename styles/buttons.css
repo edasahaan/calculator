@@ -12,10 +12,10 @@ button {
   cursor: pointer;
 }
 
-.numbers > button {
+/* .numbers > button {
   margin-top: 20px;
   padding: 10px;
-}
+} */
 
 button:hover {
   background-color: #f4978e;
