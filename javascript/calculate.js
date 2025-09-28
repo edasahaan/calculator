@@ -1,7 +1,25 @@
-//her seferinde getElement yazmak yerine "display" değişkenine atarak sadece display diye sesleneceğiz.
+//Instead of writing getElement every time, we call it display
 const display = document.getElementById("display");
 
 function appendToDisplay(input) {
+  const operators = ["+", "-", "*", "/", "%", ",", "."];
+  const lastChar = display.value.slice(-1);
+
+  // arka arkaya operatör eklenmesini engelle
+  if (operators.includes(lastChar) && operators.includes(input)) {
+    return;
+  }
+
+  if (input === ".") {
+    let lastNumber = display.value.split(/[\+\-\*\/\%]/).pop();
+    //split: operatörler arası sayı gruplarını ayrıştırmayı sağladı.
+    //pop: son sayı grubunu kontrol etmeyi sağladı.
+
+    if (lastNumber.includes(".")) {
+      return;
+    }
+  }
+
   display.value += input;
 }
 
@@ -33,8 +51,55 @@ function brackets() {
 
 function calculate() {
   try {
-    display.value = eval(display.value); // işlemi yazdırırsan işlemden tekrar işlem yazmazsın.
+    const expression = display.value;
+    //ekrandaki değeri expression değişkenine kaydet
+    const result = math.evaluate(expression);
+    //expressionda hesaplanan işlemin sonucu result değişkenine kaydet
+
+    display.value = ""; //ekranı yeni işlem için hazırla (temizle)
+
+    //add to historySide
+    const li = document.createElement("li");
+    li.textContent = `${expression} = ${result}`;
+    // ${}: değişkenleri string şekilde koymayı sağlıyor.
+    document.querySelector(".history").appendChild(li);
   } catch (error) {
     display.value = "Error";
   }
 }
+
+function clearHistory() {
+  document.querySelector(".history").textContent = "";
+}
+
+// Klavyeden input dinleme
+document.addEventListener("keydown", function (event) {
+  const key = event.key; // basılan tuş
+
+  if (!isNaN(key) || ["+", "-", "*", "/", "%", "."].includes(key)) {
+    // "!isNaN" : input bir sayı mı?
+    // veya + - * / % ,  operatörlerinden biri seçildiyse yap:
+
+    event.preventDefault(); //iki kere yazmayı engelle
+    appendToDisplay(key);
+  }
+  if (isNaN(key) && key !== "Enter" && key !== "Backspace") {
+    event.preventDefault();
+    return;
+  }
+
+  //virgüle basılırsa nokta görülsün
+  if (key === ",") {
+    appendToDisplay(".");
+  }
+
+  // Enter tuşu = sonucu hesapla
+  if (key === "Enter") {
+    calculate();
+  }
+
+  // Backspace = son girileni sil
+  if (key === "Backspace") {
+    clearLastInput();
+  }
+});

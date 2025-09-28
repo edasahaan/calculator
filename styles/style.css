@@ -3,6 +3,17 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
+  background: url(pinkLeaves.jpg);
+  background-size: cover;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); /* beyaz yarı saydam katman */
+  z-index: -1;
 }
 
 .calculatorArea {
@@ -18,7 +29,6 @@ body {
 .historyHeader {
   text-align: center;
   font-size: xx-large;
-  font-style: oblique;
   color: rgba(63, 59, 59, 0.89);
   height: fit-content;
   width: 280px;
@@ -27,26 +37,48 @@ body {
   border-bottom: 3px solid;
 }
 
-#calculator,
-.historySide {
-  background-color: #fcb09f;
-  text-align: right;
-  max-width: 80vw;
-}
 .historySide {
   background: #f8b3a1; /* biraz daha açık pastel ton */
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.08) /* iç gölge */;
   padding: 1rem;
+  max-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-style: italic;
 }
 #calculator {
+  background-color: #fcb09f;
   display: grid;
+  text-align: right;
+  max-width: 80vw;
 }
 
 .history {
+  flex: 1;
   color: rgba(73, 73, 73, 0.568);
   font-weight: bold;
   font-size: 1.5rem;
   font-style: italic;
+  overflow-y: auto;
+}
+
+#clearHistory {
+  background-color: #f0ded9;
+  color: rgba(85, 80, 80, 0.89);
+  font-size: x-large;
+  width: fit-content;
+  height: 7%;
+  padding: 10px;
+  margin: 0 0 10% 0;
+  border-radius: 10px;
+  align-self: flex-end;
+  cursor: pointer;
+  box-shadow: 0 0 7px rgba(29, 18, 18, 0.6);
+}
+
+#clearHistory:hover {
+  background-color: #f0ded980;
 }
 
 #display {
